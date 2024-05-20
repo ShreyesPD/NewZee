@@ -1,0 +1,10 @@
+business
+entertainment
+general
+health
+science
+sports
+technology
+
+
+                            <li className="nav-item"><a className="nav-link" href="/">About</a></li>
