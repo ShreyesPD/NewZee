@@ -29,6 +29,7 @@ const News = (props) => {
     useEffect(() => {
         document.title = `NewZee | ${capitalizeFirstLetter(props.category)}`
         updateNews()
+        // eslint-disable-next-line
     }, [])
 
     // const handleNextClick = async () => {
@@ -42,18 +43,18 @@ const News = (props) => {
     // }
 
     const fetchMoreData = async () => {
+        let url = `https://newsapi.org/v2/top-headlines?country=${props.country}&category=${props.category}&apiKey=${props.apiKey}&page=${page + 1}&pageSize=${props.pageSize}`
         setPage(page + 1)
-        // updateNews()
-        let url = `https://newsapi.org/v2/top-headlines?country=${props.country}&category=${props.category}&apiKey=${props.apiKey}&page=${page}&pageSize=${props.pageSize}`
         let data = await fetch(url)
         let parsedData = await data.json()
         console.log(parsedData)
         setArticles(articles.concat(parsedData.articles))
         setTotalArticles(parsedData.totalArticles)
     }
+
     return (
         <div className='container my-3'>
-            <div id="scrollableDiv" style={{ height: 450, overflow: "auto" }}>
+            <div id="scrollableDiv" style={{ height: 450, overflow: "auto", marginTop: '90px' }}>
                 <h1 className='text-center'> NewZee - Top Headlines | {capitalizeFirstLetter(props.category)} </h1>
                 {loading && <Spinner />}
                 <InfiniteScroll
@@ -98,3 +99,14 @@ News.propTypes = {
 
 
 export default News
+
+
+
+// {
+//     if (nonVeg.everyday() && nonVeg.everything()) {
+//         nonVeg.eat()
+//     }
+//     else {
+//         veg.eat()
+//     }
+// }
