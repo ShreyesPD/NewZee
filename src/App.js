@@ -7,6 +7,7 @@ import {
   Route,
   Routes
 } from "react-router-dom";
+import Search from './Components/Search';
 
 const App = () => {
   const apiKey = process.env.React_App_Api_Key_two
@@ -23,6 +24,7 @@ const App = () => {
         <Route exact path="/science" element={<News key="science" country="in" apiKey={apiKey} pageSize={6} category="science" />} />
         <Route exact path="/sports" element={<News key="sports" country="in" apiKey={apiKey} pageSize={6} category="sports" />} />
         <Route exact path="/technology" element={<News key="technology" country="in" apiKey={apiKey} pageSize={6} category="technology" />} />
+        <Route exact path="/search" element={<Search key="search" country="in" keyWord="cricket" apiKey={apiKey} pageSize={6} />} />
       </Routes>
     </Router>
   )

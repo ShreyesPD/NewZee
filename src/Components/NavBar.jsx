@@ -1,7 +1,22 @@
-import React from 'react'
-import { NavLink } from 'react-router-dom'
+import React, { useState } from 'react'
+import { NavLink, useNavigate } from 'react-router-dom'
+
 
 const NavBar = () => {
+
+    const [searchText, setSearchText] = useState("")
+    const navigate = useNavigate()
+
+    const onChangeHandler = (event) => {
+        setSearchText(event.target.value)
+    }
+
+    const searchResults = (event) => {
+        event.preventDefault();
+        console.log(`searchText ${searchText}`)
+        navigate('/search', { state: { keyWord: searchText }, replace: true });
+    }
+
     return (
         <nav className="navbar fixed-top navbar-expand-lg bg-body-tertiary">
             <div className="container-fluid">
@@ -22,6 +37,10 @@ const NavBar = () => {
                         <li className="nav-item"><NavLink className="nav-link" to="/technology">Technology</NavLink></li>
                     </ul>
                 </div>
+                <form className="d-flex" role="search">
+                    <input className="form-control me-2" id='search' defaultValue={searchText} onChange={onChangeHandler} type="search" placeholder="Search" aria-label="Search" />
+                    <button className="btn btn-outline-success" type='submit' onClick={searchResults}>Search</button>
+                </form>
             </div>
         </nav>
     )
