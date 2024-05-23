@@ -10,21 +10,26 @@ const Search = (props) => {
     const [loading, setLoading] = useState(true)
     const [page, setPage] = useState(1)
     const [totalArticles, setTotalArticles] = useState(0)
+    // const [keyWord, setKeyWord] = useState("")
 
     const location = useLocation();
     const keyWord = location.state.keyWord
-    console.log(keyWord)
+    // setKeyWord(keyWordd)
+    console.log("search" + keyWord)
 
     const capitalizeFirstLetter = (string) => {
         return string.charAt(0).toUpperCase() + string.slice(1);
     }
 
     const updateNews = async () => {
+        // const location = useLocation();
+        // setKeyWord(location.state.keyWord)
         window.scrollTo({ top: 0, left: 0, behaviour: 'smooth' });
         let url = `https://newsapi.org/v2/top-headlines?country=${props.country}&q=${keyWord}&apiKey=${props.apiKey}&page=${page}&pageSize=${props.pageSize}`
         setLoading(true)
         let data = await fetch(url)
         let parsedData = await data.json()
+        console.log("search updatenews")
         console.log(parsedData)
         setArticles(parsedData.articles)
         setTotalArticles(parsedData.totalResults)
@@ -33,21 +38,20 @@ const Search = (props) => {
 
     useEffect(() => {
         document.title = `NewZee | ${capitalizeFirstLetter(props.keyWord)}`
+        setPage(1)
         updateNews()
         // eslint-disable-next-line
-    }, [])
+    }, [keyWord])
 
     const fetchMoreData = async () => {
         let url = `https://newsapi.org/v2/top-headlines?country=${props.country}&q=${keyWord}&apiKey=${props.apiKey}&page=${page}&pageSize=${props.pageSize}`
         setPage(page + 1)
         let data = await fetch(url)
         let parsedData = await data.json()
-        console.log(parsedData)
+        console.log("search fetchdata" + parsedData)
         setArticles(articles.concat(parsedData.articles))
         setTotalArticles(parsedData.totalArticles)
     }
-
-
 
     return (
         < div className='container my-3' >
@@ -57,7 +61,7 @@ const Search = (props) => {
                 <InfiniteScroll
                     dataLength={articles.length}
                     next={fetchMoreData}
-                    hasMore={articles.length !== totalArticles}
+                    hasMore={articles.length <= totalArticles}
                     loader={<Spinner />}
                     scrollableTarget="scrollableDiv">
                     <div className="container">

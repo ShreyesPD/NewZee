@@ -15,6 +15,7 @@ const News = (props) => {
     }
 
     const updateNews = async () => {
+        console.log("in update news")
         window.scrollTo({ top: 0, left: 0, behaviour: 'smooth' });
         let url = `https://newsapi.org/v2/top-headlines?country=${props.country}&category=${props.category}&apiKey=${props.apiKey}&page=${page}&pageSize=${props.pageSize}`
         setLoading(true)
@@ -27,6 +28,7 @@ const News = (props) => {
     }
 
     useEffect(() => {
+        console.log("in useefect")
         document.title = `NewZee | ${capitalizeFirstLetter(props.category)}`
         updateNews()
         // eslint-disable-next-line
@@ -43,6 +45,7 @@ const News = (props) => {
     // }
 
     const fetchMoreData = async () => {
+        console.log("in fetch more data")
         let url = `https://newsapi.org/v2/top-headlines?country=${props.country}&category=${props.category}&apiKey=${props.apiKey}&page=${page + 1}&pageSize=${props.pageSize}`
         setPage(page + 1)
         let data = await fetch(url)

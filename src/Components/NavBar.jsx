@@ -13,7 +13,7 @@ const NavBar = () => {
 
     const searchResults = (event) => {
         event.preventDefault();
-        console.log(`searchText ${searchText}`)
+        console.log(`navbar ${searchText}`)
         navigate('/search', { state: { keyWord: searchText }, replace: true });
     }
 
