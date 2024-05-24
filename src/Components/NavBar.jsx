@@ -6,6 +6,8 @@ const NavBar = () => {
 
     const [searchText, setSearchText] = useState("")
     const navigate = useNavigate()
+    const country = "ae ar at au be bg br ca ch cn co cu cz de eg fr gb gr hk hu id ie il in it jp kr lt lv ma mx my ng nl no nz ph pl pt ro rs ru sa se sg si sk th tr tw ua us ve za".split(" ")
+    const [countryCode, setCountryCode] = useState('in');
 
     const onChangeHandler = (event) => {
         setSearchText(event.target.value)
@@ -37,12 +39,21 @@ const NavBar = () => {
                         <li className="nav-item"><NavLink className="nav-link" to="/technology">Technology</NavLink></li>
                     </ul>
                 </div>
+                <div className="d-flex mx-3">
+                    <select name="selectedCountry" value={countryCode} onChange={e => setCountryCode(e.target.value)} >
+                        {country.map((ele) => {
+                            return (
+                                <option value={ele} > {ele} </option>
+                            )
+                        })}
+                    </select>
+                </div>
                 <form className="d-flex" role="search">
                     <input className="form-control me-2" id='search' defaultValue={searchText} onChange={onChangeHandler} type="search" placeholder="Search" aria-label="Search" />
                     <button className="btn btn-outline-success" type='submit' onClick={searchResults}>Search</button>
                 </form>
             </div>
-        </nav>
+        </nav >
     )
 }
 
